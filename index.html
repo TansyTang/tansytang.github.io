@@ -39,24 +39,28 @@
       nav.open ul > li { width: auto; padding: 0.5rem 1rem; }
       nav.open ul > li > a, nav.open ul > li > span { font-size: 1.2rem; }
 
-            /* Hide nested dropdown by default on mobile */
-      nav.open ul li.dropdown .dropdown-content {
-        display: none;
-        position: static;
-        background: none;
-        backdrop-filter: none;
-        box-shadow: none;
-        padding: 0;
+                  /* Hide nested dropdown by default on mobile */
+      nav ul li.dropdown .dropdown-content {
+        display: none !important;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,0.8);
+        backdrop-filter: blur(15px);
+        border-radius: 8px;
+        padding: .5rem 0;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.7);
       }
       /* Show nested dropdown when clicked */
       nav.open ul li.dropdown.open-dropdown .dropdown-content {
-        display: flex;
+        display: flex !important;
         flex-direction: column;
-        padding-left: 1rem;
       }
       nav.open ul li.dropdown.open-dropdown .dropdown-content li a {
-        padding: 0.5rem 0;
-      }}
+        padding: .5rem 1rem;
+      }
+    }
   </style>
 </head>
 <body>
