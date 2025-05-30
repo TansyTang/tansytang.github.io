@@ -6,43 +6,53 @@
   <title>Welcome to Yu Tang's Homepage</title>
   <style>
     /* Reset & Base */
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#000; color:#e0e0e0; line-height:1.6; padding-top:70px; overflow-x:hidden; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; color: #e0e0e0; line-height: 1.6; padding-top: 70px; overflow-x: hidden; }
 
     /* Navigation */
-    nav { position:fixed; top:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; background:rgba(0,0,0,0.5); backdrop-filter:blur(15px); box-shadow:0 4px 30px rgba(0,0,0,0.7); z-index:1000; }
-    nav .logo { font-size:1.5rem; font-weight:bold; }
-    nav .menu-toggle { display:none; font-size:1.8rem; cursor:pointer; color:#e0e0e0; }
-    nav ul { list-style:none; display:flex; }
-    nav ul li { position:relative; margin-left:1.5rem; }
-    nav ul li a, nav ul li span { color:#e0e0e0; text-decoration:none; font-size:1rem; transition:color .3s; cursor:pointer; }
-    nav ul li a:hover, nav ul li a.active, nav ul li span:hover { color:#3498db; }
+    nav { position: fixed; top: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); box-shadow: 0 4px 30px rgba(0,0,0,0.7); z-index: 1000; }
+    nav .logo { font-size: 1.5rem; font-weight: bold; }
+    nav .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: #e0e0e0; }
+    nav ul { list-style: none; display: flex; }
+    nav ul li { position: relative; margin-left: 1.5rem; }
+    nav ul li a, nav ul li span { color: #e0e0e0; text-decoration: none; font-size: 1rem; transition: color .3s; cursor: pointer; }
+    nav ul li a:hover, nav ul li a.active, nav ul li span:hover { color: #3498db; }
 
-    /* Nested Dropdown */
-    .dropdown-content { display:none; position:absolute; top:100%; left:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(15px); list-style:none; padding:.5rem 0; border-radius:8px; }
-    .dropdown-content li a { display:block; padding:.5rem 1rem; color:#e0e0e0; }
-    .dropdown-content li a:hover { color:#3498db; }
-    li.dropdown.open-dropdown > .dropdown-content { display:block; }
+    /* Nested Dropdown (always absolute) */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(15px);
+      list-style: none;
+      padding: .5rem 0;
+      border-radius: 8px;
+      z-index: 1000;
+    }
+    .dropdown-content li a { display: block; padding: .5rem 1rem; color: #e0e0e0; }
+    .dropdown-content li a:hover { color: #3498db; }
+    li.dropdown.open-dropdown > .dropdown-content { display: flex; flex-direction: column; }
 
     /* Sections */
-    section { max-width:800px; margin:0 auto; padding:2rem; display:none; }
-    section.active { display:block; }
-    .card { background:rgba(0,0,0,0.4); backdrop-filter:blur(15px); border:1px solid rgba(255,255,255,0.1); border-radius:15px; padding:2rem; }
+    section { max-width: 800px; margin: 0 auto; padding: 2rem; display: none; }
+    section.active { display: block; }
+    .card { background: rgba(0,0,0,0.4); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 2rem; }
 
     /* Animation */
-    .fade-in { opacity:0; transform:translateY(20px); animation:fadeInUp .8s forwards; }
-    @keyframes fadeInUp { to { opacity:1; transform:translateY(0); } }
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp .8s forwards; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     /* Mobile */
-    @media(max-width:768px) {
-      nav .menu-toggle { display:block; }
-      nav ul { position:absolute; top:100%; left:0; flex-direction:column; width:100%; background:rgba(0,0,0,0.8); display:none; }
-      nav.open ul { display:flex; }
-      nav.open ul li { width:100%; padding:0.5rem 2rem; }
-      nav.open ul li a, nav.open ul li span { font-size:1.2rem; }
-      /* dropdown-content within mobile menu */
-      li.dropdown > .dropdown-content { position:static; background:transparent; backdrop-filter:none; padding:0; }
-      li.dropdown.open-dropdown > .dropdown-content li a { padding-left:2rem; }
+    @media (max-width: 768px) {
+      nav .menu-toggle { display: block; }
+      nav ul { position: absolute; top: 100%; left: 0; flex-direction: column; width: 100%; background: rgba(0,0,0,0.8); display: none; }
+      nav.open ul { display: flex; }
+      nav.open ul li { width: 100%; padding: .5rem 2rem; }
+      nav.open ul li a, nav.open ul li span { font-size: 1.2rem; }
+      /* Keep dropdown absolute in mobile as well */
+      .dropdown-content { position: absolute; }
     }
   </style>
 </head>
@@ -79,14 +89,18 @@
   <section id="music" class="fade-in">
     <div class="card">
       <h2>Music</h2>
-      <p>Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.</p>
+      <p>
+        Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.
+      </p>
     </div>
   </section>
 
   <section id="photography" class="fade-in">
     <div class="card">
       <h2>Photography</h2>
-      <p>I’ll be sharing some of my photos here — the ones I’m fairly happy with.</p>
+      <p>
+        I’ll be sharing some of my photos here — the ones I’m fairly happy with.
+      </p>
     </div>
   </section>
 
