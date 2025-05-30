@@ -46,19 +46,53 @@
       display: flex;
     }
     nav ul li {
+      position: relative;
       margin-left: 1.5rem;
     }
-    nav ul li a {
+    /* Top-level links */
+    nav ul li > a,
+    nav ul li > span {
       color: #e0e0e0;
       text-decoration: none;
       font-size: 1rem;
       transition: color 0.3s;
       cursor: pointer;
+      padding: 0.2rem 0;
+      display: inline-block;
     }
     /* Active and hover state blue */
-    nav ul li a:hover,
-    nav ul li a.active {
+    nav ul li > a:hover,
+    nav ul li > a.active,
+    nav ul li > span:hover {
       color: #3498db;
+    }
+    /* Dropdown submenu */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 120%;
+      left: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(15px);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+      list-style: none;
+      padding: 0.5rem 0;
+      min-width: 140px;
+      z-index: 1000;
+    }
+    .dropdown-content li a {
+      color: #e0e0e0;
+      padding: 0.5rem 1rem;
+      display: block;
+      font-size: 0.95rem;
+    }
+    .dropdown-content li a:hover {
+      color: #3498db;
+    }
+    /* Show dropdown when open-dropdown class set */
+    nav ul li.dropdown.open-dropdown .dropdown-content {
+      display: block;
     }
 
     /* Sections and Glass Cards */
@@ -103,7 +137,7 @@
         top: 100%;
         left: 0;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         width: 100%;
         background: rgba(0, 0, 0, 0.8);
         padding: 1rem 0;
@@ -114,6 +148,23 @@
       }
       nav ul li {
         margin: 0.5rem 0;
+        width: 100%;
+        padding-left: 2rem;
+      }
+      /* Mobile dropdown: static under parent */
+      nav ul li.dropdown.open-dropdown .dropdown-content {
+        position: static;
+        background: transparent;
+        backdrop-filter: none;
+        box-shadow: none;
+        padding: 0;
+        min-width: auto;
+      }
+      nav ul li.dropdown .dropdown-content li a {
+        padding: 0.5rem 0;
+      }
+      nav ul li > span {
+        padding: 0;
       }
       nav ul li a {
         font-size: 1.2rem;
@@ -130,8 +181,13 @@
     <div class="menu-toggle">☰</div>
     <ul>
       <li><a data-target="about" class="active">About</a></li>
-      <li><a data-target="hobby">Hobby</a></li>
-      <li><a data-target="education">Education</a></li>
+      <li class="dropdown">
+        <span id="hobbyToggle">Hobby</span>
+        <ul class="dropdown-content">
+          <li><a data-target="music">Music</a></li>
+          <li><a data-target="photography">Photography</a></li>
+        </ul>
+      </li>
       <li><a data-target="contact">Contact</a></li>
     </ul>
   </nav>
@@ -140,24 +196,24 @@
     <div class="card">
       <h1>About Me</h1>
       <p>
-        Hi, I'm Yu Tang from Gansu Province, China, currently pursuing my master's degree in Electrical and Computer Engineering at Waseda University, Tokyo, Japan.<br>
+        Hi, I'm Yu Tang from China, currently pursuing my master's degree in Electrical and Computer Engineering at Waseda University.<br>
         My academic interests focus on deep learning and related areas in artificial intelligence.<br>
         Beyond my studies, I'm passionate about music and photography, and I also enjoy collecting vinyl records and exploring different sounds from around the world.
       </p>
     </div>
   </section>
 
-  <section id="hobby" class="fade-in">
+  <section id="music" class="fade-in">
     <div class="card">
-      <h2>Hobby</h2>
-      <p>TBC</p>
+      <h2>Music</h2>
+      <p>Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.</p>
     </div>
   </section>
 
-  <section id="education" class="fade-in">
+  <section id="photography" class="fade-in">
     <div class="card">
-      <h2>Education</h2>
-      <p>TBC</p>
+      <h2>Photography</h2>
+      <p>I’ll be sharing some of my photos here — the ones I’m fairly happy with.</p>
     </div>
   </section>
 
@@ -170,27 +226,31 @@
   </section>
 
   <script>
-    // 获取导航元素和链接
     const nav = document.querySelector('nav');
     const menuToggle = document.querySelector('.menu-toggle');
     const links = document.querySelectorAll('nav ul li a');
     const sections = document.querySelectorAll('section');
+    const hobbyToggle = document.getElementById('hobbyToggle');
 
-    // 点击汉堡菜单切换显示
+    // Toggle mobile menu
     menuToggle.addEventListener('click', () => {
       nav.classList.toggle('open');
     });
 
-    // 点击链接切换页面并收回菜单
+    // Toggle hobby submenu
+    hobbyToggle.addEventListener('click', () => {
+      document.querySelector('li.dropdown').classList.toggle('open-dropdown');
+    });
+
+    // Handle link clicks
     links.forEach(link => {
       link.addEventListener('click', () => {
-        // 切换 active 类
         links.forEach(l => l.classList.remove('active'));
         sections.forEach(sec => sec.classList.remove('active'));
         link.classList.add('active');
         document.getElementById(link.dataset.target).classList.add('active');
-        // 收回手机端菜单
         nav.classList.remove('open');
+        document.querySelector('li.dropdown').classList.remove('open-dropdown');
       });
     });
   </script>
