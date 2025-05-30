@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yu Tang's Homepage</title>
+  <title>Welcome to Yu Tang's Homepage</title>
   <style>
     /* Reset & Base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -20,6 +20,7 @@
     nav {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
       display: flex;
       justify-content: space-between;
@@ -38,6 +39,7 @@
       display: none;
       font-size: 1.8rem;
       cursor: pointer;
+      color: #e0e0e0;
     }
     nav ul {
       list-style: none;
@@ -53,7 +55,7 @@
       transition: color 0.3s;
       cursor: pointer;
     }
-    /* Active and hover state now blue */
+    /* Active and hover state blue */
     nav ul li a:hover,
     nav ul li a.active {
       color: #3498db;
@@ -97,10 +99,15 @@
         display: block;
       }
       nav ul {
-        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
         flex-direction: column;
+        align-items: center;
         width: 100%;
-        margin-top: 1rem;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 1rem 0;
+        display: none;
       }
       nav.open ul {
         display: flex;
@@ -108,12 +115,18 @@
       nav ul li {
         margin: 0.5rem 0;
       }
+      nav ul li a {
+        font-size: 1.2rem;
+      }
+      section {
+        padding: 1.5rem 1rem;
+      }
     }
   </style>
 </head>
 <body>
   <nav>
-    <div class="logo">Yu Tang</div>
+    <div class="logo">Yu Tang's Homepage</div>
     <div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('open')">☰</div>
     <ul>
       <li><a data-target="about" class="active">About</a></li>
