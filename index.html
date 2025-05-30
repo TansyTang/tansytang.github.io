@@ -31,24 +31,15 @@
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
       z-index: 1000;
     }
-    nav .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
+    nav .logo { font-size: 1.5rem; font-weight: bold; }
     nav .menu-toggle {
       display: none;
       font-size: 1.8rem;
       cursor: pointer;
       color: #e0e0e0;
     }
-    nav ul {
-      list-style: none;
-      display: flex;
-    }
-    nav ul li {
-      position: relative;
-      margin-left: 1.5rem;
-    }
+    nav ul { list-style: none; display: flex; }
+    nav ul li { position: relative; margin-left: 1.5rem; }
     nav ul li a,
     nav ul li span {
       color: #e0e0e0;
@@ -61,15 +52,13 @@
     }
     nav ul li a:hover,
     nav ul li a.active,
-    nav ul li span:hover {
-      color: #3498db;
-    }
+    nav ul li span:hover { color: #3498db; }
 
     /* Dropdown submenu */
     .dropdown-content {
       display: none;
       position: absolute;
-      top: 120%;
+      top: calc(100% + 0.5rem);
       left: 0;
       background: rgba(0,0,0,0.8);
       backdrop-filter: blur(15px);
@@ -86,21 +75,11 @@
       display: block;
       font-size: 0.95rem;
     }
-    .dropdown-content li a:hover {
-      color: #3498db;
-    }
+    .dropdown-content li a:hover { color: #3498db; }
     /* Show dropdown on open-dropdown */
     nav ul li.dropdown.open-dropdown .dropdown-content {
       display: flex;
       flex-direction: column;
-      position: absolute;
-      top: calc(100% + 0.5rem);
-      left: 0;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(15px);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
-      padding: 0.5rem 0;
-      border-radius: 8px;
     }
 
     /* Sections and Glass Cards */
@@ -110,9 +89,7 @@
       padding: 2rem;
       display: none;
     }
-    section.active {
-      display: block;
-    }
+    section.active { display: block; }
     .card {
       background: rgba(0,0,0,0.4);
       backdrop-filter: blur(15px);
@@ -121,23 +98,17 @@
       padding: 2rem;
       box-shadow: 0 4px 20px rgba(0,0,0,0.7);
     }
-    h1, h2 {
-      margin-bottom: 1rem;
-    }
+    h1, h2 { margin-bottom: 1rem; }
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInUp 0.8s forwards;
     }
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     /* Responsive Layout */
     @media (max-width: 768px) {
-      nav .menu-toggle {
-        display: block;
-      }
+      nav .menu-toggle { display: block; }
       nav ul {
         position: absolute;
         top: 100%;
@@ -149,22 +120,16 @@
         padding: 1rem 0;
         display: none;
       }
-      nav.open ul {
-        display: flex;
-      }
-      /* Apply styles only to top-level items */
-      nav.open ul > li {
+      /* Only show direct child menu on nav.open */
+      nav.open > ul { display: flex; }
+      nav.open > ul > li {
         margin: 0.5rem 0;
         padding-left: 2rem;
         width: 100%;
       }
-      nav.open ul > li > a,
-      nav.open ul > li > span {
-        font-size: 1.2rem;
-      }
-      section {
-        padding: 1.5rem 1rem;
-      }
+      nav.open > ul > li > a,
+      nav.open > ul > li > span { font-size: 1.2rem; }
+      section { padding: 1.5rem 1rem; }
     }
   </style>
 </head>
