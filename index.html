@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TY</title>
+  <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #121212; color: #e0e0e0; line-height: 1.6; }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(18, 18, 18, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      z-index: 1000;
+    }
+    nav .logo { font-size: 1.5rem; font-weight: bold; }
+    nav ul { list-style: none; display: flex; }
+    nav ul li { margin-left: 1.5rem; }
+    nav ul li a {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover { color: #1db954; }
+
+    /* Sections */
+    section {
+      padding: 100px 2rem 60px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1, h2 { margin-bottom: 1rem; }
+    .divider { height: 1px; background: #333; margin: 2rem 0; }
+
+    /* Fade-in animation */
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">TY</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#hobby">Hobby</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="about" class="fade-in">
+    <h1>About Me</h1>
+    <p>这里写关于你的介绍，比如你的职业、兴趣、目标等。</p>
+  </section>
+  <div class="divider"></div>
+
+  <section id="hobby" class="fade-in">
+    <h2>Hobby</h2>
+    <p>在这里记录你的爱好，比如摄影、音乐、编码等等。</p>
+  </section>
+  <div class="divider"></div>
+
+  <section id="education" class="fade-in">
+    <h2>Education</h2>
+    <p>在这里列出你的教育背景，如学校、专业、学位、时间等。</p>
+  </section>
+  <div class="divider"></div>
+
+  <section id="contact" class="fade-in">
+    <h2>Contact</h2>
+    <p>📧 Email: your.email@example.com</p>
+    <p>🐙 GitHub: <a href="https://github.com/你的用户名" target="_blank">github.com/你的用户名</a></p>
+  </section>
+</body>
+</html>
