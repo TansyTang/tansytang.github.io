@@ -7,78 +7,165 @@
   <style>
     /* Reset & Base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #121212; color: #e0e0e0; line-height: 1.6; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      color: #e0e0e0;
+      line-height: 1.6;
+      padding-top: 70px;
+      overflow-x: hidden;
+    }
 
-    /* Navigation */
+    /* Glassmorphism Navigation */
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(18, 18, 18, 0.9);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
       z-index: 1000;
     }
-    nav .logo { font-size: 1.5rem; font-weight: bold; }
-    nav ul { list-style: none; display: flex; }
-    nav ul li { margin-left: 1.5rem; }
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    nav .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+    }
+    nav ul li {
+      margin-left: 1.5rem;
+    }
     nav ul li a {
       color: #e0e0e0;
       text-decoration: none;
       font-size: 1rem;
       transition: color 0.3s;
+      cursor: pointer;
     }
-    nav ul li a:hover { color: #1db954; }
+    /* Active and hover state now blue */
+    nav ul li a:hover,
+    nav ul li a.active {
+      color: #3498db;
+    }
 
-    /* Sections */
+    /* Sections and Glass Cards */
     section {
-      padding: 100px 2rem 60px;
       max-width: 800px;
       margin: 0 auto;
+      padding: 2rem;
+      display: none;
     }
-    h1, h2 { margin-bottom: 1rem; }
-    .divider { height: 1px; background: #333; margin: 2rem 0; }
+    section.active {
+      display: block;
+    }
+    .card {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    }
+    h1, h2 {
+      margin-bottom: 1rem;
+    }
 
-    /* Fade-in animation */
-    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; }
-    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    /* Fade-in Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Layout */
+    @media (max-width: 768px) {
+      nav .menu-toggle {
+        display: block;
+      }
+      nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+      }
+      nav.open ul {
+        display: flex;
+      }
+      nav ul li {
+        margin: 0.5rem 0;
+      }
+    }
   </style>
 </head>
 <body>
   <nav>
     <div class="logo">TY</div>
+    <div class="menu-toggle" onclick="document.querySelector('nav').classList.toggle('open')">☰</div>
     <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#hobby">Hobby</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a data-target="about" class="active">About</a></li>
+      <li><a data-target="hobby">Hobby</a></li>
+      <li><a data-target="education">Education</a></li>
+      <li><a data-target="contact">Contact</a></li>
     </ul>
   </nav>
 
-  <section id="about" class="fade-in">
-    <h1>About Me</h1>
-    <p>TBC</p>
+  <section id="about" class="active fade-in">
+    <div class="card">
+      <h1>About Me</h1>
+      <p>TBC</p>
+    </div>
   </section>
-  <div class="divider"></div>
 
   <section id="hobby" class="fade-in">
-    <h2>Hobby</h2>
-    <p>TBC</p>
+    <div class="card">
+      <h2>Hobby</h2>
+      <p>TBC</p>
+    </div>
   </section>
-  <div class="divider"></div>
 
   <section id="education" class="fade-in">
-    <h2>Education</h2>
-    <p>TBC</p>
+    <div class="card">
+      <h2>Education</h2>
+      <p>TBC</p>
+    </div>
   </section>
-  <div class="divider"></div>
 
   <section id="contact" class="fade-in">
-    <h2>Contact</h2>
-    <p>📧 Email: tansytang1015@gmail.com</p>
-    <p>🐙 GitHub: <a href="https://github.com/tansytang" target="_blank">github.com/tansytang</a></p>
+    <div class="card">
+      <h2>Contact</h2>
+      <p>📧 Email: tansytang1015@gmail.com</p>
+      <p>🐙 GitHub: <a href="https://github.com/tansytang" target="_blank">github.com/tansytang</a></p>
+    </div>
   </section>
+
+  <script>
+    // 切换子页面
+    const links = document.querySelectorAll('nav ul li a');
+    const sections = document.querySelectorAll('section');
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        // 清除 active
+        links.forEach(l => l.classList.remove('active'));
+        sections.forEach(sec => sec.classList.remove('active'));
+        // 添加 active
+        link.classList.add('active');
+        document.getElementById(link.dataset.target).classList.add('active');
+      });
+    });
+  </script>
 </body>
 </html>
