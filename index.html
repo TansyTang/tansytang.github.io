@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to Yu Tang's Homepage</title>
   <style>
-    /* Reset & Base */
+    /* Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -16,7 +16,7 @@
       overflow-x: hidden;
     }
 
-    /* Navigation */
+    /* Desktop Nav */
     nav {
       position: fixed;
       top: 0;
@@ -32,22 +32,10 @@
       z-index: 1000;
     }
     nav .logo { font-size: 1.5rem; font-weight: bold; }
-    nav .menu-toggle {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: #e0e0e0;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-    }
-    nav ul li {
-      position: relative;
-      margin-left: 1.5rem;
-    }
-    nav ul li a,
-    nav ul li span {
+    nav .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: #e0e0e0; }
+    nav ul { list-style: none; display: flex; }
+    nav ul li { position: relative; margin-left: 1.5rem; }
+    nav ul li a, nav ul li span {
       color: #e0e0e0;
       text-decoration: none;
       font-size: 1rem;
@@ -56,13 +44,10 @@
       padding: 0.2rem 0;
       display: inline-block;
     }
-    nav ul li a:hover,
-    nav ul li a.active,
-    nav ul li span:hover {
+    nav ul li a:hover, nav ul li a.active, nav ul li span:hover {
       color: #3498db;
     }
-
-    /* Dropdown for desktop */
+    /* Desktop Dropdown */
     .dropdown-content {
       display: none;
       position: absolute;
@@ -77,7 +62,7 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.7);
       z-index: 1000;
     }
-    /* Show on hover for desktop */
+    /* Show on hover */
     nav ul li.dropdown:hover > .dropdown-content {
       display: flex;
     }
@@ -86,20 +71,11 @@
       color: #e0e0e0;
       font-size: 0.9rem;
     }
-    .dropdown-content li a:hover {
-      color: #3498db;
-    }
+    .dropdown-content li a:hover { color: #3498db; }
 
-    /* Sections and Cards */
-    section {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-      display: none;
-    }
-    section.active {
-      display: block;
-    }
+    /* Sections */
+    section { max-width: 800px; margin: 0 auto; padding: 2rem; display: none; }
+    section.active { display: block; }
     .card {
       background: rgba(0,0,0,0.4);
       backdrop-filter: blur(15px);
@@ -108,45 +84,19 @@
       padding: 2rem;
       box-shadow: 0 4px 20px rgba(0,0,0,0.7);
     }
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Animation */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-    }
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Mobile */
+    /* Mobile Styles */
     @media (max-width: 768px) {
-      nav .menu-toggle {
-        display: block;
-      }
-      nav ul {
-        position: absolute;
-        top: 100%;
-        left: 0;
+      nav .menu-toggle { display: block; }
+      nav ul { display: none; flex-direction: column; align-items: center; width: 100%; background: rgba(0,0,0,0.8); position: absolute; top: 100%; left: 0; }
+      nav.open ul { display: flex; justify-content: center; }
+      nav.open ul > li { width: auto; padding: 0.5rem 1rem; }
+      nav.open ul > li > a, nav.open ul > li > span { font-size: 1.2rem; }
+      /* Nested dropdown in mobile */
+      .dropdown-content {
         display: none;
-        flex-direction: column;
-        width: 100%;
-        background: rgba(0,0,0,0.8);
-        text-align: center;
-      }
-      nav.open ul {
-        display: flex;
-      }
-      nav.open ul > li {
-        width: 100%;
-        padding: 0.5rem 0;
-      }
-      nav.open ul > li > a,
-      nav.open ul > li > span {
-        font-size: 1.2rem;
-      }
-      /* Mobile dropdown: show on click, position static */
-      nav ul li .dropdown-content {
         position: static;
         background: none;
         backdrop-filter: none;
@@ -156,10 +106,9 @@
       nav ul li.dropdown.open-dropdown > .dropdown-content {
         display: flex;
         flex-direction: column;
+        padding-left: 1rem;
       }
-      nav ul li.dropdown > .dropdown-content li a {
-        padding-left: 2rem;
-      }
+      nav ul li.dropdown > .dropdown-content li a { padding: 0.5rem 0; }
     }
   </style>
 </head>
@@ -196,18 +145,14 @@
   <section id="music" class="fade-in">
     <div class="card">
       <h2>Music</h2>
-      <p>
-        Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.
-      </p>
+      <p>Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.</p>
     </div>
   </section>
 
   <section id="photography" class="fade-in">
     <div class="card">
       <h2>Photography</h2>
-      <p>
-        I’ll be sharing some of my photos here — the ones I’m fairly happy with.
-      </p>
+      <p>I’ll be sharing some of my photos here — the ones I’m fairly happy with.</p>
     </div>
   </section>
 
@@ -221,36 +166,28 @@
 
   <script>
     const nav = document.querySelector('nav');
-    const menuToggle = document.querySelector('.menu-toggle');
+    const toggle = document.querySelector('.menu-toggle');
     const links = document.querySelectorAll('nav ul > li > a');
     const sections = document.querySelectorAll('section');
     const dropdown = document.querySelector('li.dropdown');
-    const hobbyToggle = document.getElementById('hobbyToggle');
+    const hobby = document.getElementById('hobbyToggle');
 
-    // Toggle mobile menu
-    menuToggle.addEventListener('click', () => {
+    toggle.addEventListener('click', () => {
       nav.classList.toggle('open');
       dropdown.classList.remove('open-dropdown');
     });
-
-    // Toggle hobby submenu
-    hobbyToggle.addEventListener('click', () => {
+    hobby.addEventListener('click', () => {
       dropdown.classList.toggle('open-dropdown');
     });
-
-    // Handle navigation
-    links.forEach(link => {
-      link.addEventListener('click', () => {
-        const target = link.dataset.target;
-        if (!target) return;
-        document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove('active'));
-        sections.forEach(s => s.classList.remove('active'));
-        link.classList.add('active');
-        document.getElementById(target).classList.add('active');
-        nav.classList.remove('open');
-        dropdown.classList.remove('open-dropdown');
-      });
-    });
+    links.forEach(link => link.addEventListener('click', () => {
+      const tgt = link.dataset.target; if (!tgt) return;
+      links.forEach(l => l.classList.remove('active'));
+      sections.forEach(s => s.classList.remove('active'));
+      link.classList.add('active');
+      document.getElementById(tgt).classList.add('active');
+      nav.classList.remove('open');
+      dropdown.classList.remove('open-dropdown');
+    }));
   </script>
 </body>
 </html>
