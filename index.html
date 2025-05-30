@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to Yu Tang's Homepage</title>
   <style>
     /* Reset & Base */
@@ -18,41 +18,30 @@
     nav ul li a, nav ul li span { color: #e0e0e0; text-decoration: none; font-size: 1rem; transition: color .3s; cursor: pointer; }
     nav ul li a:hover, nav ul li a.active, nav ul li span:hover { color: #3498db; }
 
-    /* Nested Dropdown (always absolute) */
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(15px);
-      list-style: none;
-      padding: .5rem 0;
-      border-radius: 8px;
-      z-index: 1000;
-    }
+    /* Nested Dropdown */
+    .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); list-style: none; padding: .5rem 0; border-radius: 8px; z-index: 1000; }
     .dropdown-content li a { display: block; padding: .5rem 1rem; color: #e0e0e0; }
     .dropdown-content li a:hover { color: #3498db; }
-    li.dropdown.open-dropdown > .dropdown-content { display: flex; flex-direction: column; }
+    li.dropdown.open-dropdown > .dropdown-content { display: block; }
 
-    /* Sections */
+    /* Sections and Cards */
     section { max-width: 800px; margin: 0 auto; padding: 2rem; display: none; }
     section.active { display: block; }
-    .card { background: rgba(0,0,0,0.4); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 2rem; }
+    .card { background: rgba(0,0,0,0.4); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.7); }
 
     /* Animation */
     .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp .8s forwards; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
     /* Mobile */
-    @media (max-width: 768px) {
+    @media(max-width: 768px) {
       nav .menu-toggle { display: block; }
       nav ul { position: absolute; top: 100%; left: 0; flex-direction: column; width: 100%; background: rgba(0,0,0,0.8); display: none; }
       nav.open ul { display: flex; }
-      nav.open ul li { width: 100%; padding: .5rem 2rem; }
-      nav.open ul li a, nav.open ul li span { font-size: 1.2rem; }
-      /* Keep dropdown absolute in mobile as well */
-      .dropdown-content { position: absolute; }
+      nav.open ul > li { width: 100%; padding: .5rem 2rem; }
+      nav.open ul > li > a, nav.open ul > li > span { font-size: 1.2rem; }
+      /* Show nested dropdown in mobile under parent */
+      li.dropdown.open-dropdown > .dropdown-content { position: relative; top: 0; left: 0; background: transparent; backdrop-filter: none; padding: .5rem 0 0 1rem; box-shadow: none; }
     }
   </style>
 </head>
@@ -115,29 +104,28 @@
   <script>
     const nav = document.querySelector('nav');
     const menuToggle = document.querySelector('.menu-toggle');
-    const links = document.querySelectorAll('nav ul > li > a');
+    const links = document.querySelectorAll('nav ul li > a');
     const sections = document.querySelectorAll('section');
     const dropdown = document.querySelector('li.dropdown');
     const hobbyToggle = document.getElementById('hobbyToggle');
 
-    // Mobile menu toggle
+    // Toggle mobile menu
     menuToggle.addEventListener('click', () => {
       nav.classList.toggle('open');
       dropdown.classList.remove('open-dropdown');
     });
 
-    // Hobby submenu toggle
+    // Toggle hobby submenu
     hobbyToggle.addEventListener('click', () => {
       dropdown.classList.toggle('open-dropdown');
     });
 
-    // Navigation links
+    // Handle navigation
     links.forEach(link => {
       link.addEventListener('click', () => {
-        const target = link.dataset.target;
-        if (!target) return;
+        const target = link.dataset.target; if (!target) return;
         document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove('active'));
-        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        sections.forEach(s => s.classList.remove('active'));
         link.classList.add('active');
         document.getElementById(target).classList.add('active');
         nav.classList.remove('open');
