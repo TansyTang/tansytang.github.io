@@ -116,57 +116,8 @@
     /* Mobile Styles */
     @media (max-width: 768px) {
       /* Show hamburger icon */
-      nav .menu-toggle {
-        display: block;
-      }
-      /* Hide main menu by default */
-      nav ul {
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        position: absolute;
-        top: 100%;
-        left: 0;
-      }
-      /* Reveal on open */
-      nav.open ul {
-        display: flex;
-        justify-content: center;
-        gap: 0;
-      }
-      nav.open ul > li {
-        width: auto;
-        padding: 0.5rem 1rem;
-      }
-      nav.open ul > li > a,
-      nav.open ul > li > span {
-        font-size: 1.2rem;
-      }
-
-      /* Dropdown behavior mobile */
-      nav ul li.dropdown {
-        position: static;
-      }
-      /* Hide nested by default with collapse */
-      .dropdown-content {
-        display: none;
-        overflow: hidden;
-        max-height: 0;
-        transition: max-height 0.3s ease;
-      }
-      /* Expand, pushing Contact downward */
-      nav.open ul li.dropdown.open-dropdown > .dropdown-content {
-        display: flex;
-        flex-direction: column;
-        max-height: 200px;
-      }
-      .dropdown-content li a {
-        padding: 0.5rem 1rem;
-      }
-    }
-  </style>
+      nav .menu-toggle { display: block; }
+      </style>
 </head>
 <body>
   <nav>
