@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to Yu Tang's Homepage</title>
   <style>
-    /* Reset */
+    /* Reset & Base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; color: #e0e0e0; line-height: 1.6; padding-top: 70px; overflow-x: hidden; }
 
     /* Navigation Common */
     nav { position: fixed; top: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); box-shadow: 0 4px 30px rgba(0,0,0,0.7); z-index: 1000; }
-    nav .logo { font-size: 1.5rem; font-weight: bold; color: #e0e0e0; }
-    nav .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: #e0e0e0; }
+    .logo { font-size: 1.5rem; font-weight: bold; color: #e0e0e0; }
+    .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: #e0e0e0; }
     nav ul { list-style: none; display: flex; gap: 1.5rem; }
     nav ul li { position: relative; }
     nav ul li a, nav ul li span { color: #e0e0e0; text-decoration: none; font-size: 1rem; transition: color 0.3s; cursor: pointer; }
@@ -23,7 +23,7 @@
     nav ul li.dropdown:hover > .dropdown-content { display: flex; }
     .dropdown-content li a { padding: .5rem 1rem; font-size: .9rem; }
 
-    /* Section cards */
+    /* Main sections */
     section { max-width: 800px; margin: 0 auto; padding: 2rem; display: none; }
     section.active { display: block; }
     .card { background: rgba(0,0,0,0.4); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.7); }
@@ -32,7 +32,7 @@
 
     /* Mobile Styles */
     @media (max-width: 768px) {
-      nav .menu-toggle { display: block; }
+      .menu-toggle { display: block; }
       /* Hide main menu */
       nav ul { display: none; flex-direction: column; align-items: center; width: 100%; background: rgba(0,0,0,0.8); position: absolute; top: 100%; left: 0; }
       /* Show when open */
@@ -40,9 +40,10 @@
       nav.open ul > li { width: 100%; text-align: center; padding: .5rem 0; }
       nav.open ul > li > a, nav.open ul > li > span { font-size: 1.2rem; }
 
-      /* Mobile dropdown flow */
-      .dropdown-content { display: none; position: static; max-height: none; }
-      nav.open ul li.dropdown.open-dropdown > .dropdown-content { display: flex; flex-direction: column; }
+      /* Mobile dropdown: static flow, hidden by default */
+      nav.open ul li.dropdown > .dropdown-content { display: none !important; position: static; }
+      /* Show submenu when clicked */
+      nav.open ul li.dropdown.open-dropdown > .dropdown-content { display: flex !important; flex-direction: column; }
       nav.open ul li.dropdown.open-dropdown > .dropdown-content li a { padding: .5rem 1rem; }
     }
   </style>
@@ -64,40 +65,10 @@
     </ul>
   </nav>
 
-  <section id="about" class="active fade-in">
-    <div class="card">
-      <h1>About Me</h1>
-      <p>
-        Hi, I'm Yu Tang from China, currently pursuing my master's degree in Electrical and Computer Engineering at Waseda University.<br>
-        My interests focus on deep learning and related areas in artificial intelligence.<br>
-        Beyond my studies, I'm passionate about music and photography, and I also enjoy collecting vinyl records and exploring different sounds from around the world.<br>
-        This site might not have much to do with my major's field.<br>
-        It’s more like a blog or a personal notebook for me.
-      </p>
-    </div>
-  </section>
-
-  <section id="music" class="fade-in">
-    <div class="card">
-      <h2>Music</h2>
-      <p>Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.</p>
-    </div>
-  </section>
-
-  <section id="photography" class="fade-in">
-    <div class="card">
-      <h2>Photography</h2>
-      <p>I’ll be sharing some of my photos here — the ones I’m fairly happy with.</p>
-    </div>
-  </section>
-
-  <section id="contact" class="fade-in">
-    <div class="card">
-      <h2>Contact</h2>
-      <p>📧 Email: tansytang1015@gmail.com</p>
-      <p>📸 Instagram: <a href="https://instagram.com/kagayaku1015" target="_blank">@kagayaku1015</a></p>
-    </div>
-  </section>
+  <section id="about" class="active fade-in"><div class="card"><h1>About Me</h1><p>Hi, I'm Yu Tang from China, currently pursuing my master's degree in Electrical and Computer Engineering at Waseda University.<br>My interests focus on deep learning and related areas in artificial intelligence.<br>Beyond my studies, I'm passionate about music and photography, and I also enjoy collecting vinyl records and exploring different sounds from around the world.<br>This site might not have much to do with my major's field.<br>It’s more like a blog or a personal notebook for me.</p></div></section>
+  <section id="music" class="fade-in"><div class="card"><h2>Music</h2><p>Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.</p></div></section>
+  <section id="photography" class="fade-in"><div class="card"><h2>Photography</h2><p>I’ll be sharing some of my photos here — the ones I’m fairly happy with.</p></div></section>
+  <section id="contact" class="fade-in"><div class="card"><h2>Contact</h2><p>📧 Email: tansytang1015@gmail.com</p><p>📸 Instagram: <a href="https://instagram.com/kagayaku1015" target="_blank">@kagayaku1015</a></p></div></section>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -113,27 +84,19 @@
         nav.classList.toggle('open');
         dropdown.classList.remove('open-dropdown');
       });
-
       // Toggle hobby submenu
       hobbyToggle.addEventListener('click', () => {
-        // ensure menu open
+        // Ensure menu is open
         nav.classList.add('open');
         dropdown.classList.toggle('open-dropdown');
       });
-
-      // Link navigation
-      links.forEach(link => {
-        link.addEventListener('click', () => {
-          const targetId = link.getAttribute('data-target');
-          if (!targetId) return;
-          nav.classList.remove('open');
-          dropdown.classList.remove('open-dropdown');
-          links.forEach(l => l.classList.remove('active'));
-          link.classList.add('active');
-          sections.forEach(sec => sec.classList.remove('active'));
-          document.getElementById(targetId).classList.add('active');
-        });
-      });
+      // Navigation
+      links.forEach(link => link.addEventListener('click', () => {
+        const targetId = link.getAttribute('data-target'); if (!targetId) return;
+        nav.classList.remove('open'); dropdown.classList.remove('open-dropdown');
+        links.forEach(l => l.classList.remove('active')); link.classList.add('active');
+        sections.forEach(s => s.classList.remove('active')); document.getElementById(targetId).classList.add('active');
+      }));
     });
   </script>
 </body>
