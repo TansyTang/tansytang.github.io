@@ -6,57 +6,172 @@
   <title>Welcome to Yu Tang's Homepage</title>
   <style>
     /* Reset */
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:#000; color:#e0e0e0; line-height:1.6; padding-top:70px; overflow-x:hidden; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      color: #e0e0e0;
+      line-height: 1.6;
+      padding-top: 70px;
+      overflow-x: hidden;
+    }
 
-    /* Nav Common */
-    nav { position:fixed; top:0; left:0; width:100%; display:flex; justify-content:space-between; align-items:center;
-      padding:1rem 2rem; background:rgba(0,0,0,0.5); backdrop-filter:blur(15px); box-shadow:0 4px 30px rgba(0,0,0,0.7); z-index:1000; }
-    nav .logo { font-size:1.5rem; font-weight:bold; }
-    nav .menu-toggle { display:none; font-size:1.8rem; cursor:pointer; color:#e0e0e0; }
-    nav ul { list-style:none; display:flex; }
-    nav ul li { position:relative; margin-left:1.5rem; }
-    nav ul li a, nav ul li span { color:#e0e0e0; text-decoration:none; font-size:1rem; transition:color .3s; cursor:pointer; padding:0.2rem 0; }
-    nav ul li a:hover, nav ul li a.active, nav ul li span:hover { color:#3498db; }
+    /* Navigation Common */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+    }
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    nav .menu-toggle {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #e0e0e0;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav ul li {
+      position: relative;
+    }
+    nav ul li a,
+    nav ul li span {
+      color: #e0e0e0;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+      cursor: pointer;
+    }
+    nav ul li a:hover,
+    nav ul li a.active,
+    nav ul li span:hover {
+      color: #3498db;
+    }
 
     /* Desktop Dropdown */
-    .dropdown-content { display:none; position:absolute; top:100%; left:0; flex-direction:column;
-      background:rgba(0,0,0,0.8); backdrop-filter:blur(15px); list-style:none; padding:0.5rem 0; border-radius:8px;
-      box-shadow:0 4px 20px rgba(0,0,0,0.7); }
-    nav ul li.dropdown:hover > .dropdown-content { display:flex; }
-    .dropdown-content li a { padding:0.5rem 1rem; color:#e0e0e0; font-size:0.9rem; }
-    .dropdown-content li a:hover { color:#3498db; }
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      flex-direction: column;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(15px);
+      list-style: none;
+      padding: 0.5rem 0;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+    }
+    nav ul li.dropdown:hover > .dropdown-content {
+      display: flex;
+    }
+    .dropdown-content li a {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
 
-    /* Sections */
-    section { max-width:800px; margin:0 auto; padding:2rem; display:none; }
-    section.active { display:block; }
-    .card { background:rgba(0,0,0,0.4); backdrop-filter:blur(15px); border:1px solid rgba(255,255,255,0.1);
-      border-radius:15px; padding:2rem; box-shadow:0 4px 20px rgba(0,0,0,0.7); }
-    .fade-in { opacity:0; transform:translateY(20px); animation:fadeInUp .8s forwards; }
-    @keyframes fadeInUp { to { opacity:1; transform:translateY(0); } }
+    /* Sections and Cards */
+    section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    .card {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+    }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-    /* Mobile */
-    @media (max-width:768px) {
-      nav .menu-toggle { display:block; }
-      nav ul { display:none; flex-direction:column; align-items:center; width:100%; background:rgba(0,0,0,0.8);
-        position:absolute; top:100%; left:0; }
-      nav.open ul { display:flex; justify-content:center; }
-      nav.open ul > li { width:auto; padding:0.5rem 1rem; }
-      nav.open ul > li > a, nav.open ul > li > span { font-size:1.2rem; }
-      /* Prepare dropdown */
-      nav ul li.dropdown { position:relative; }
-      nav.open ul li.dropdown > .dropdown-content { display:none !important; }
-      nav.open ul li.dropdown.open-dropdown > .dropdown-content {
-        display:flex !important; flex-direction:column; position:absolute; top:100%; left:50%; transform:translateX(-50%);
+    /* Mobile Styles */
+    @media (max-width: 768px) {
+      /* Show hamburger icon */
+      nav .menu-toggle {
+        display: block;
       }
-      nav.open ul li.dropdown.open-dropdown > .dropdown-content li a { padding:0.5rem 1rem; }
+      /* Hide main menu by default */
+      nav ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        position: absolute;
+        top: 100%;
+        left: 0;
+      }
+      /* Reveal on open */
+      nav.open ul {
+        display: flex;
+        justify-content: center;
+        gap: 0;
+      }
+      nav.open ul > li {
+        width: auto;
+        padding: 0.5rem 1rem;
+      }
+      nav.open ul > li > a,
+      nav.open ul > li > span {
+        font-size: 1.2rem;
+      }
+
+      /* Dropdown behavior mobile */
+      nav ul li.dropdown {
+        position: static;
+      }
+      /* Hide nested by default with collapse */
+      .dropdown-content {
+        display: none;
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.3s ease;
+      }
+      /* Expand, pushing Contact downward */
+      nav.open ul li.dropdown.open-dropdown > .dropdown-content {
+        display: flex;
+        flex-direction: column;
+        max-height: 200px;
+      }
+      .dropdown-content li a {
+        padding: 0.5rem 1rem;
+      }
     }
   </style>
 </head>
 <body>
   <nav>
     <div class="logo">Yu Tang</div>
-    <div class="menu-toggle" onclick="nav.classList.toggle('open'); dropdown.classList.remove('open-dropdown');">☰</div>
+    <div class="menu-toggle">☰</div>
     <ul>
       <li><a data-target="about" class="active">About</a></li>
       <li class="dropdown">
@@ -69,24 +184,74 @@
       <li><a data-target="contact">Contact</a></li>
     </ul>
   </nav>
-  <section id="about" class="active fade-in"><div class="card"><h1>About Me</h1><p>Hi, I'm Yu Tang from China, currently pursuing my master's degree in Electrical and Computer Engineering at Waseda University.<br>My interests focus on deep learning and related areas in artificial intelligence.<br>Beyond my studies, I'm passionate about music and photography, and I also enjoy collecting vinyl records and exploring different sounds from around the world.<br>This site might not have much to do with my major's field.<br>It’s more like a blog or a personal notebook for me.</p></div></section>
-  <section id="music" class="fade-in"><div class="card"><h2>Music</h2><p>Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.</p></div></section>
-  <section id="photography" class="fade-in"><div class="card"><h2>Photography</h2><p>I’ll be sharing some of my photos here — the ones I’m fairly happy with.</p></div></section>
-  <section id="contact" class="fade-in"><div class="card"><h2>Contact</h2><p>📧 Email: tansytang1015@gmail.com</p><p>📸 Instagram: <a href="https://instagram.com/kagayaku1015" target="_blank">@kagayaku1015</a></p></div></section>
+
+  <section id="about" class="active fade-in">
+    <div class="card">
+      <h1>About Me</h1>
+      <p>
+        Hi, I'm Yu Tang from China, currently pursuing my master's degree in Electrical and Computer Engineering at Waseda University.<br>
+        My interests focus on deep learning and related areas in artificial intelligence.<br>
+        Beyond my studies, I'm passionate about music and photography, and I also enjoy collecting vinyl records and exploring different sounds from around the world.<br>
+        This site might not have much to do with my major's field.<br>
+        It’s more like a blog or a personal notebook for me.
+      </p>
+    </div>
+  </section>
+
+  <section id="music" class="fade-in">
+    <div class="card">
+      <h2>Music</h2>
+      <p>Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.</p>
+    </div>
+  </section>
+
+  <section id="photography" class="fade-in">
+    <div class="card">
+      <h2>Photography</h2>
+      <p>I’ll be sharing some of my photos here — the ones I’m fairly happy with.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="fade-in">
+    <div class="card">
+      <h2>Contact</h2>
+      <p>📧 Email: tansytang1015@gmail.com</p>
+      <p>📸 Instagram: <a href="https://instagram.com/kagayaku1015" target="_blank">@kagayaku1015</a></p>
+    </div>
+  </section>
+
   <script>
     const nav = document.querySelector('nav');
+    const toggle = document.querySelector('.menu-toggle');
     const dropdown = document.querySelector('li.dropdown');
     const hobbyToggle = document.getElementById('hobbyToggle');
     const links = document.querySelectorAll('nav ul > li > a');
     const sections = document.querySelectorAll('section');
-    document.querySelector('.menu-toggle').addEventListener('click', () => { dropdown.classList.remove('open-dropdown'); });
-    hobbyToggle.addEventListener('click', () => { dropdown.classList.toggle('open-dropdown'); });
-    links.forEach(link => link.addEventListener('click', () => {
-      const tgt = link.dataset.target; if (!tgt) return;
-      document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove('active')); link.classList.add('active');
-      sections.forEach(s => s.classList.remove('active')); document.getElementById(tgt).classList.add('active');
-      nav.classList.remove('open'); dropdown.classList.remove('open-dropdown');
-    }));
+
+    // mobile menu open/close
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('open');
+      dropdown.classList.remove('open-dropdown');
+    });
+    // hobby submenu toggle
+    hobbyToggle.addEventListener('click', () => {
+      dropdown.classList.toggle('open-dropdown');
+    });
+    // navigation
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        const tgt = link.dataset.target;
+        if (!tgt) return;
+        nav.classList.remove('open');
+        dropdown.classList.remove('open-dropdown');
+        // activate link
+        document.querySelectorAll('nav ul li a').forEach(a => a.classList.remove('active'));
+        link.classList.add('active');
+        // show section
+        sections.forEach(s => s.classList.remove('active'));
+        document.getElementById(tgt).classList.add('active');
+      });
+    });
   </script>
 </body>
 </html>
