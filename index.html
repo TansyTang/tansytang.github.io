@@ -49,9 +49,8 @@
       position: relative;
       margin-left: 1.5rem;
     }
-    /* Top-level links */
-    nav ul li > a,
-    nav ul li > span {
+    nav ul li a,
+    nav ul li span {
       color: #e0e0e0;
       text-decoration: none;
       font-size: 1rem;
@@ -60,12 +59,12 @@
       padding: 0.2rem 0;
       display: inline-block;
     }
-    /* Active and hover state blue */
-    nav ul li > a:hover,
-    nav ul li > a.active,
-    nav ul li > span:hover {
+    nav ul li a:hover,
+    nav ul li a.active,
+    nav ul li span:hover {
       color: #3498db;
     }
+
     /* Dropdown submenu */
     .dropdown-content {
       display: none;
@@ -90,9 +89,18 @@
     .dropdown-content li a:hover {
       color: #3498db;
     }
-    /* Show dropdown when open-dropdown class set */
+    /* Show dropdown on open-dropdown */
     nav ul li.dropdown.open-dropdown .dropdown-content {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      left: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(15px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+      padding: 0.5rem 0;
+      border-radius: 8px;
     }
 
     /* Sections and Glass Cards */
@@ -106,18 +114,16 @@
       display: block;
     }
     .card {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0,0,0,0.4);
       backdrop-filter: blur(15px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255,255,255,0.1);
       border-radius: 15px;
       padding: 2rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
     }
     h1, h2 {
       margin-bottom: 1rem;
     }
-
-    /* Fade-in Animation */
     .fade-in {
       opacity: 0;
       transform: translateY(20px);
@@ -139,34 +145,21 @@
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(0,0,0,0.8);
         padding: 1rem 0;
         display: none;
       }
       nav.open ul {
         display: flex;
       }
-      nav ul li {
+      /* Apply styles only to top-level items */
+      nav.open ul > li {
         margin: 0.5rem 0;
-        width: 100%;
         padding-left: 2rem;
+        width: 100%;
       }
-      /* Mobile dropdown: static under parent */
-      nav ul li.dropdown.open-dropdown .dropdown-content {
-        position: static;
-        background: transparent;
-        backdrop-filter: none;
-        box-shadow: none;
-        padding: 0;
-        min-width: auto;
-      }
-      nav ul li.dropdown .dropdown-content li a {
-        padding: 0.5rem 0;
-      }
-      nav ul li > span {
-        padding: 0;
-      }
-      nav ul li a {
+      nav.open ul > li > a,
+      nav.open ul > li > span {
         font-size: 1.2rem;
       }
       section {
@@ -199,7 +192,7 @@
         Hi, I'm Yu Tang from China, currently pursuing my master's degree in Electrical and Computer Engineering at Waseda University.<br>
         My interests focus on deep learning and related areas in artificial intelligence.<br>
         Beyond my studies, I'm passionate about music and photography, and I also enjoy collecting vinyl records and exploring different sounds from around the world.<br>
-        This site might not have much to do with my major's field. <br>
+        This site might not have much to do with my major's field.<br>
         It’s more like a blog or a personal notebook for me.
       </p>
     </div>
@@ -230,29 +223,33 @@
   <script>
     const nav = document.querySelector('nav');
     const menuToggle = document.querySelector('.menu-toggle');
-    const links = document.querySelectorAll('nav ul li a');
+    const links = document.querySelectorAll('nav ul > li > a');
     const sections = document.querySelectorAll('section');
     const hobbyToggle = document.getElementById('hobbyToggle');
+    const dropdown = document.querySelector('li.dropdown');
 
     // Toggle mobile menu
     menuToggle.addEventListener('click', () => {
       nav.classList.toggle('open');
+      dropdown.classList.remove('open-dropdown');
     });
 
     // Toggle hobby submenu
     hobbyToggle.addEventListener('click', () => {
-      document.querySelector('li.dropdown').classList.toggle('open-dropdown');
+      dropdown.classList.toggle('open-dropdown');
     });
 
     // Handle link clicks
     links.forEach(link => {
       link.addEventListener('click', () => {
+        // switch sections
         links.forEach(l => l.classList.remove('active'));
         sections.forEach(sec => sec.classList.remove('active'));
         link.classList.add('active');
         document.getElementById(link.dataset.target).classList.add('active');
+        // close menus
         nav.classList.remove('open');
-        document.querySelector('li.dropdown').classList.remove('open-dropdown');
+        dropdown.classList.remove('open-dropdown');
       });
     });
   </script>
