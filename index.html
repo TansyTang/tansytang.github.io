@@ -1,135 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Welcome to Yu Tang's Homepage</title>
   <style>
     /* Reset & Base */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #000;
-      color: #e0e0e0;
-      line-height: 1.6;
-      padding-top: 70px;
-      overflow-x: hidden;
-    }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; color: #e0e0e0; line-height: 1.6; padding-top: 70px; overflow-x: hidden; }
 
-    /* Glassmorphism Navigation */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(15px);
-      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
-      z-index: 1000;
-    }
+    /* Navigation */
+    nav { position: fixed; top: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); box-shadow: 0 4px 30px rgba(0,0,0,0.7); z-index: 1000; }
     nav .logo { font-size: 1.5rem; font-weight: bold; }
-    nav .menu-toggle {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: #e0e0e0;
-    }
+    nav .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: #e0e0e0; }
     nav ul { list-style: none; display: flex; }
     nav ul li { position: relative; margin-left: 1.5rem; }
-    nav ul li a,
-    nav ul li span {
-      color: #e0e0e0;
-      text-decoration: none;
-      font-size: 1rem;
-      transition: color 0.3s;
-      cursor: pointer;
-      padding: 0.2rem 0;
-      display: inline-block;
-    }
-    nav ul li a:hover,
-    nav ul li a.active,
-    nav ul li span:hover { color: #3498db; }
+    nav ul li a, nav ul li span { color: #e0e0e0; text-decoration: none; font-size: 1rem; transition: color .3s; cursor: pointer; }
+    nav ul li a:hover, nav ul li a.active, nav ul li span:hover { color: #3498db; }
 
-    /* Dropdown submenu */
+    /* Nested Dropdown */
     .dropdown-content {
-      display: none;
-      position: absolute;
-      top: calc(100% + 0.5rem);
-      left: 0;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(15px);
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
-      list-style: none;
-      padding: 0.5rem 0;
-      min-width: 140px;
-      z-index: 1000;
+      display: none; position: absolute; top: 100%; left: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); list-style: none; padding: .5rem 0; border-radius: 8px;
     }
-    .dropdown-content li a {
-      color: #e0e0e0;
-      padding: 0.5rem 1rem;
-      display: block;
-      font-size: 0.95rem;
-    }
+    .dropdown-content li a { display: block; padding: .5rem 1rem; color: #e0e0e0; }
     .dropdown-content li a:hover { color: #3498db; }
-    /* Show dropdown on open-dropdown */
-    nav ul li.dropdown.open-dropdown .dropdown-content {
-      display: flex;
-      flex-direction: column;
-    }
+    .dropdown.open-dropdown .dropdown-content { display: block; }
 
-    /* Sections and Glass Cards */
-    section {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-      display: none;
-    }
+    /* Sections */
+    section { max-width: 800px; margin: 0 auto; padding: 2rem; display: none; }
     section.active { display: block; }
-    .card {
-      background: rgba(0,0,0,0.4);
-      backdrop-filter: blur(15px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 15px;
-      padding: 2rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.7);
-    }
-    h1, h2 { margin-bottom: 1rem; }
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-    }
+    .card { background: rgba(0,0,0,0.4); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 2rem; }
+
+    /* Animation */
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp .8s forwards; }
     @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /* Responsive Layout */
-    @media (max-width: 768px) {
+    /* Mobile */
+    @media(max-width: 768px) {
       nav .menu-toggle { display: block; }
-      nav ul {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        background: rgba(0,0,0,0.8);
-        padding: 1rem 0;
-        display: none;
-      }
-      /* Only show direct child menu on nav.open */
-      nav.open > ul { display: flex; }
-      nav.open > ul > li {
-        margin: 0.5rem 0;
-        padding-left: 2rem;
-        width: 100%;
-      }
-      nav.open > ul > li > a,
-      nav.open > ul > li > span { font-size: 1.2rem; }
-      section { padding: 1.5rem 1rem; }
+      nav ul { position: absolute; top: 100%; left: 0; flex-direction: column; width: 100%; background: rgba(0,0,0,0.8); display: none; }
+      nav.open ul { display: flex; }
+      nav.open ul > li { width: 100%; padding: 0.5rem 2rem; }
+      nav.open ul > li > a, nav.open ul > li > span { font-size: 1.2rem; }
+      nav ul li.dropdown .dropdown-content { position: absolute; }
     }
   </style>
 </head>
@@ -166,14 +79,18 @@
   <section id="music" class="fade-in">
     <div class="card">
       <h2>Music</h2>
-      <p>Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.</p>
+      <p>
+        Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.
+      </p>
     </div>
   </section>
 
   <section id="photography" class="fade-in">
     <div class="card">
       <h2>Photography</h2>
-      <p>I’ll be sharing some of my photos here — the ones I’m fairly happy with.</p>
+      <p>
+        I’ll be sharing some of my photos here — the ones I’m fairly happy with.
+      </p>
     </div>
   </section>
 
@@ -188,10 +105,10 @@
   <script>
     const nav = document.querySelector('nav');
     const menuToggle = document.querySelector('.menu-toggle');
-    const links = document.querySelectorAll('nav ul > li > a');
+    const links = document.querySelectorAll('nav ul li > a');
     const sections = document.querySelectorAll('section');
+    const dropdown = document.querySelector('.dropdown');
     const hobbyToggle = document.getElementById('hobbyToggle');
-    const dropdown = document.querySelector('li.dropdown');
 
     // Toggle mobile menu
     menuToggle.addEventListener('click', () => {
@@ -204,15 +121,16 @@
       dropdown.classList.toggle('open-dropdown');
     });
 
-    // Handle link clicks
+    // Handle link clicks with guard for data-target
     links.forEach(link => {
       link.addEventListener('click', () => {
-        // switch sections
+        const targetId = link.dataset.target;
+        if (!targetId) return;
         links.forEach(l => l.classList.remove('active'));
         sections.forEach(sec => sec.classList.remove('active'));
         link.classList.add('active');
-        document.getElementById(link.dataset.target).classList.add('active');
-        // close menus
+        const section = document.getElementById(targetId);
+        if (section) section.classList.add('active');
         nav.classList.remove('open');
         dropdown.classList.remove('open-dropdown');
       });
