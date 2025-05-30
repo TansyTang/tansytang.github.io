@@ -19,10 +19,23 @@
     nav ul li a:hover, nav ul li a.active, nav ul li span:hover { color: #3498db; }
 
     /* Nested Dropdown */
-    .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); list-style: none; padding: .5rem 0; border-radius: 8px; z-index: 1000; }
+    .dropdown-content {
+      display: none !important;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(15px);
+      list-style: none;
+      padding: .5rem 0;
+      border-radius: 8px;
+      z-index: 1000;
+    }
     .dropdown-content li a { display: block; padding: .5rem 1rem; color: #e0e0e0; }
     .dropdown-content li a:hover { color: #3498db; }
-    li.dropdown.open-dropdown > .dropdown-content { display: block; }
+    li.dropdown.open-dropdown > .dropdown-content {
+      display: block !important;
+    }
 
     /* Sections and Cards */
     section { max-width: 800px; margin: 0 auto; padding: 2rem; display: none; }
