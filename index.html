@@ -34,6 +34,7 @@
     nav .logo {
       font-size: 1.5rem;
       font-weight: bold;
+      color: #e0e0e0;
     }
     nav .menu-toggle {
       display: none;
@@ -115,9 +116,51 @@
 
     /* Mobile Styles */
     @media (max-width: 768px) {
-      /* Show hamburger icon */
-      nav .menu-toggle { display: block; }
-      </style>
+      nav .menu-toggle {
+        display: block;
+      }
+      /* Hide menu */
+      nav ul {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        position: absolute;
+        top: 100%;
+        left: 0;
+      }
+      /* Show when open */
+      nav.open ul {
+        display: flex;
+        justify-content: center;
+      }
+      nav.open ul > li {
+        width: auto;
+        padding: 0.5rem 1rem;
+      }
+      nav.open ul > li > a,
+      nav.open ul > li > span {
+        font-size: 1.2rem;
+      }
+
+      /* Collapse submenu by default */
+      nav ul li.dropdown .dropdown-content {
+        max-height: 0;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: max-height 0.3s ease;
+      }
+      /* Expand submenu on click, push down Contact */
+      nav.open ul li.dropdown.open-dropdown .dropdown-content {
+        max-height: 200px;
+      }
+      .dropdown-content li a {
+        padding: 0.5rem 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <nav>
@@ -179,20 +222,23 @@
     const links = document.querySelectorAll('nav ul > li > a');
     const sections = document.querySelectorAll('section');
 
-    // mobile menu open/close
+    // Toggle mobile menu
     toggle.addEventListener('click', () => {
       nav.classList.toggle('open');
       dropdown.classList.remove('open-dropdown');
     });
-    // hobby submenu toggle
+
+    // Toggle hobby submenu
     hobbyToggle.addEventListener('click', () => {
       dropdown.classList.toggle('open-dropdown');
     });
-    // navigation
+
+    // Handle navigation
     links.forEach(link => {
       link.addEventListener('click', () => {
         const tgt = link.dataset.target;
         if (!tgt) return;
+        // close menus
         nav.classList.remove('open');
         dropdown.classList.remove('open-dropdown');
         // activate link
