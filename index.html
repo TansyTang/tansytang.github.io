@@ -33,7 +33,10 @@
     /* Separate Music cards by more space */
     #music .card + .card { margin-top: 2rem; }
 
-    /* Album block styling under Music */
+    /* ==============================
+       Album block styling under Music
+       **仅改动以下几行，使其响应式**
+       ============================== */
     .album-block {
       display: flex;
       align-items: center;
@@ -41,25 +44,40 @@
       border-radius: 10px;
       padding: 1rem;
       margin-top: 1rem;
+      /* 下面两个属性保证文字区域能自动换行并占满剩余空间 */
+      flex-wrap: wrap;
     }
     .album-block img {
-      width: 160px;
-      height: 160px;
+      /* 原来是 width:150px; height:150px; 这里改成自适应宽度 */
+      width: 100%;
+      max-width: 150px;   /* 桌面端最大宽度为 150px，可根据需要改成 160px、180px 等 */
+      height: auto;
       object-fit: cover;
       border-radius: 5px;
       margin-right: 1rem;
+      margin-bottom: 1rem; /* 确保在换行时图片与文字之间有间距 */
+    }
+    .album-details {
+      /* 让文字区在桌面端横向占据剩余空间，在窄屏下能自动居中 */
+      flex: 1;
+      min-width: 0;       /* 允许文字在容器内换行 */
     }
     .album-details h3 {
       font-size: 1.1rem;
       margin-bottom: 0.25rem;
       color: #fff;
+      word-break: break-word; /* 防止长文本溢出 */
     }
     .album-details p {
       font-size: 0.95rem;
       color: #ccc;
+      word-break: break-word;
     }
 
-    /* Mobile Styles */
+    /* ==============================
+       Mobile Styles (≤768px) —— 仅为导航部分
+       保持原来不变
+       ============================== */
     @media (max-width: 768px) {
       .menu-toggle { display: block; }
       /* Hide main menu */
@@ -75,6 +93,40 @@
       nav.open ul li.dropdown.open-dropdown > .dropdown-content { display: flex !important; flex-direction: column; }
       nav.open ul li.dropdown.open-dropdown > .dropdown-content li a { padding: .5rem 1rem; }
     }
+
+    /* ==============================
+       **新增响应式：当屏幕宽度 ≤ 600px**
+       1. .album-block 由横排切换为纵排
+       2. 图片宽度改为 90%，文字区域居中
+       3. 文字字号微调，保证可读性
+       ============================== */
+    @media (max-width: 600px) {
+      .album-block {
+        flex-direction: column;  /* 图片在上，文字在下 */
+        align-items: center;     /* 整体居中 */
+        padding: 0.8rem;         /* 内边距稍微缩小 */
+      }
+      .album-block img {
+        /* 在窄屏时，取消右侧 margin，保持底部 margin，让文字与图片分隔 */
+        margin-right: 0;
+        margin-bottom: 0.8rem;
+        max-width: 90%;         /* 宽度占父容器的 90%，随屏幕缩放 */
+      }
+      .album-details {
+        width: 100%;
+        text-align: center;     /* 文字居中 */
+      }
+      .album-details h3 {
+        font-size: 1rem;        /* 移动端适当缩小字号 */
+      }
+      .album-details p {
+        font-size: 0.9rem;
+      }
+    }
+    /* ==============================
+       到这里为止，样式更改完毕。
+       其余导航和页面内容完全未动。
+       ============================== */
   </style>
 </head>
 <body>
@@ -116,7 +168,7 @@
           <p>Artist Name: <br>サニーデイ・サービス（Sunny Day Service）</p>
         </div>
       </div>
-      <!-- 可复制上面 .album-block 多个，替换 album-cover.jpg、Album Name、Artist Name -->
+      <!-- 可复制上面 .album-block 多个，替换 album1.jpg、Album Name、Artist Name -->
     </div>
   </section>
   <section id="photography" class="fade-in">
