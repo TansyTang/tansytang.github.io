@@ -5,283 +5,85 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to Yu Tang's Homepage</title>
   <style>
-    /*================================================================================
-      1. CSS 变量声明 (Color Palette / 间距 / 字体等)
-    =================================================================================*/
-    :root {
-      /* 颜色 */
-      --bg-color: #000;
-      --text-color: #e0e0e0;
-      --primary-color: #3498db;
-      --nav-bg: rgba(0, 0, 0, 0.5);
-      --nav-blur: blur(15px);
-      --dropdown-bg: rgba(0, 0, 0, 0.8);
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #000; color: #e0e0e0; line-height: 1.6; padding-top: 70px; overflow-x: hidden; }
 
-      /* 尺寸与间距 */
-      --nav-height: 70px;
-      --nav-padding: 1rem 2rem;
-      --menu-gap: 1.5rem;
-      --menu-item-padding: 0.5rem 1rem;
+    /* Navigation Common */
+    nav { position: fixed; top: 0; left: 0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); box-shadow: 0 4px 30px rgba(0,0,0,0.7); z-index: 1000; }
+    .logo { font-size: 1.5rem; font-weight: bold; color: #e0e0e0; text-decoration: none; cursor: pointer; }
+    .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; color: #e0e0e0; }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; }
+    nav ul li { position: relative; }
+    nav ul li a, nav ul li span { color: #e0e0e0; text-decoration: none; font-size: 1rem; transition: color 0.3s; cursor: pointer; }
+    nav ul li a:hover, nav ul li a.active, nav ul li span:hover { color: #3498db; }
 
-      /* 字体 */
-      --font-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      --font-size-base: 1rem;
-      --font-size-lg: 1.2rem;
-      --font-size-xl: 1.5rem;
+    /* Desktop Dropdown */
+    .dropdown-content { display: none; position: absolute; top: 100%; left: 0; flex-direction: column; background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); padding: .5rem 0; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.7); z-index: 1000; }
+    nav ul li.dropdown:hover > .dropdown-content { display: flex; }
+    .dropdown-content li a { padding: .5rem 1rem; font-size: .9rem; }
 
-      /* 阴影 */
-      --shadow-nav: 0 4px 30px rgba(0, 0, 0, 0.7);
-      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.7);
-      --shadow-dropdown: 0 4px 20px rgba(0, 0, 0, 0.7);
-    }
+    /* Main sections */
+    section { max-width: 800px; margin: 0 auto; padding: 2rem; display: none; }
+    section.active { display: block; }
+    .card { background: rgba(0,0,0,0.4); backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.1); border-radius: 15px; padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,0.7); }
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-    /*================================================================================
-      2. 全局基础样式 (Reset & Base)
-    =================================================================================*/
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    html {
-      scroll-behavior: smooth; /* 平滑滚动 */
-    }
-    body {
-      font-family: var(--font-base);
-      background: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-      padding-top: var(--nav-height);
-      overflow-x: hidden;
-    }
-    a {
-      color: inherit;
-      text-decoration: none;
-      cursor: pointer;
-    }
-    a:focus,
-    button:focus {
-      outline: 2px dashed var(--primary-color);
-      outline-offset: 3px;
-    }
-
-    /*================================================================================
-      3. 导航条 (Desktop / Mobile)
-    =================================================================================*/
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: var(--nav-height);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: var(--nav-padding);
-      background: var(--nav-bg);
-      backdrop-filter: var(--nav-blur);
-      box-shadow: var(--shadow-nav);
-      z-index: 1000;
-    }
-    .logo {
-      font-size: var(--font-size-xl);
-      font-weight: bold;
-      color: var(--text-color);
-    }
-    .menu-toggle {
-      display: none; /* 默认桌面隐藏，移动端再显示 */
-      font-size: var(--font-size-xl);
-      background: none;
-      border: none;
-      color: var(--text-color);
-      cursor: pointer;
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: var(--menu-gap);
-    }
-    nav ul li {
-      position: relative;
-    }
-    nav ul li a,
-    nav ul li span {
-      font-size: var(--font-size-base);
-      color: var(--text-color);
-      transition: color 0.3s;
-    }
-    nav ul li a:hover,
-    nav ul li a.active,
-    nav ul li span:hover {
-      color: var(--primary-color);
-    }
-
-    /* 子菜单 (Desktop 下拉) */
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      flex-direction: column;
-      background: var(--dropdown-bg);
-      backdrop-filter: var(--nav-blur);
-      padding: 0.5rem 0;
-      border-radius: 8px;
-      box-shadow: var(--shadow-dropdown);
-      z-index: 1000;
-    }
-    nav ul li.dropdown:hover > .dropdown-content {
-      display: flex;
-    }
-    .dropdown-content li a {
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      color: var(--text-color);
-      white-space: nowrap;
-    }
-    .dropdown-content li a:hover {
-      color: var(--primary-color);
-    }
-
-    /*================================================================================
-      4. 主要内容区 (Sections & Card)
-    =================================================================================*/
-    section {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 2rem;
-      display: none;
-    }
-    section.active {
-      display: block;
-    }
-    .card {
-      background: rgba(0, 0, 0, 0.4);
-      backdrop-filter: var(--nav-blur);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 2rem;
-      box-shadow: var(--shadow-card);
-    }
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.8s forwards;
-    }
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /*================================================================================
-      5. 移动端样式
-    =================================================================================*/
+    /* Mobile Styles */
     @media (max-width: 768px) {
-      /* 显示汉堡按钮 */
-      .menu-toggle {
-        display: block;
-      }
-      /* 隐藏桌面菜单 */
-      nav ul {
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        background: var(--dropdown-bg);
-        position: absolute;
-        top: var(--nav-height);
-        left: 0;
-      }
-      /* 展开时显示 */
-      nav.open ul {
-        display: flex;
-      }
-      nav.open ul > li {
-        width: 100%;
-        text-align: center;
-        padding: var(--menu-item-padding) 0;
-      }
-      nav.open ul > li > a,
-      nav.open ul > li > span {
-        font-size: var(--font-size-lg);
-      }
+      .menu-toggle { display: block; }
+      /* Hide main menu */
+      nav ul { display: none; flex-direction: column; align-items: center; width: 100%; background: rgba(0,0,0,0.8); position: absolute; top: 100%; left: 0; }
+      /* Show when open */
+      nav.open ul { display: flex; }
+      nav.open ul > li { width: 100%; text-align: center; padding: .5rem 0; }
+      nav.open ul > li > a, nav.open ul > li > span { font-size: 1.2rem; }
 
-      /* 将子菜单以静态流式插入，默认隐藏 */
-      nav.open ul li.dropdown > .dropdown-content {
-        display: none !important;
-        position: static;
-        width: 100%;
-      }
-      /* 点击“打开”子菜单时，直接显示并推下后面的项 */
-      nav.open ul li.dropdown.open-dropdown > .dropdown-content {
-        display: flex !important;
-        flex-direction: column;
-      }
-      nav.open ul li.dropdown.open-dropdown > .dropdown-content li a {
-        padding: var(--menu-item-padding);
-      }
-
-      /* 移动端遮罩层：当菜单展开时，点击遮罩可关闭 */
-      body.menu-open::before {
-        content: '';
-        position: fixed;
-        top: var(--nav-height);
-        left: 0;
-        width: 100%;
-        height: calc(100% - var(--nav-height));
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 999;
-      }
+      /* Mobile dropdown: static flow, hidden by default */
+      nav.open ul li.dropdown > .dropdown-content { display: none !important; position: static; }
+      /* Show submenu when clicked */
+      nav.open ul li.dropdown.open-dropdown > .dropdown-content { display: flex !important; flex-direction: column; }
+      nav.open ul li.dropdown.open-dropdown > .dropdown-content li a { padding: .5rem 1rem; }
     }
   </style>
 </head>
 <body>
-  <!-- 遮罩层：通过给 body 加上 .menu-open 类来控制显示 -->
   <nav>
-    <div class="logo">Yu Tang</div>
-    <button class="menu-toggle" aria-expanded="false" aria-controls="main-menu">☰</button>
-    <ul id="main-menu">
-      <li><a data-target="about" class="active" tabindex="0">About</a></li>
+    <!-- 把 logo 用 <a> 包裹并加上 data-target="about" -->
+    <a data-target="about" class="logo">Yu Tang</a>
+    <div class="menu-toggle">☰</div>
+    <ul>
+      <li><a data-target="about" class="active">About</a></li>
       <li class="dropdown">
-        <span id="hobbyToggle" tabindex="0" aria-haspopup="true" aria-expanded="false">Hobby</span>
-        <ul class="dropdown-content" aria-label="Hobby 子菜单">
-          <li><a data-target="music" tabindex="0">Music</a></li>
-          <li><a data-target="photography" tabindex="0">Photography</a></li>
+        <span id="hobbyToggle">Hobby</span>
+        <ul class="dropdown-content">
+          <li><a data-target="music">Music</a></li>
+          <li><a data-target="photography">Photography</a></li>
         </ul>
       </li>
-      <li><a data-target="contact" tabindex="0">Contact</a></li>
+      <li><a data-target="contact">Contact</a></li>
     </ul>
   </nav>
 
   <section id="about" class="active fade-in">
     <div class="card">
       <h1>About Me</h1>
-      <p>
-        Hi, I'm Yu Tang from Gansu Province, China, currently pursuing my master's degree in Electrical and Computer Engineering at Waseda University, Tokyo, Japan.<br>
-        My major's interests focus on deep learning and related areas in artificial intelligence.<br>
-        Beyond my studies, I'm passionate about music and photography, and I also enjoy collecting vinyl records and exploring different sounds from around the world.<br>
-        This site might not have much to do with my major's field.<br>
-        It’s more like a blog or a personal notebook for me.
-      </p>
+      <p>Hi, I'm Yu Tang from Gansu Province, China, currently pursuing my master's degree in Electrical and Computer Engineering at Waseda University, Tokyo, Japan.<br>My major's interests focus on deep learning and related areas in artificial intelligence.<br>Beyond my studies, I'm passionate about music and photography, and I also enjoy collecting vinyl records and exploring different sounds from around the world.<br>This site might not have much to do with my major's field.<br>It’s more like a blog or a personal notebook for me.</p>
     </div>
   </section>
-
   <section id="music" class="fade-in">
     <div class="card">
       <h2>Music</h2>
       <p>Here, I’ll be sharing some of my musical tastes, along with a few of my favorite artists and records.</p>
     </div>
   </section>
-
   <section id="photography" class="fade-in">
     <div class="card">
       <h2>Photography</h2>
       <p>I’ll be sharing some of my photos here — the ones I’m fairly happy with.</p>
     </div>
   </section>
-
   <section id="contact" class="fade-in">
     <div class="card">
       <h2>Contact</h2>
@@ -292,71 +94,34 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const body = document.body;
       const nav = document.querySelector('nav');
       const toggle = document.querySelector('.menu-toggle');
       const hobbyToggle = document.getElementById('hobbyToggle');
       const dropdown = document.querySelector('li.dropdown');
       const links = document.querySelectorAll('a[data-target]');
       const sections = document.querySelectorAll('section');
-      const mainMenu = document.getElementById('main-menu');
 
-      // 1. 切换移动端主菜单展开/收起
+      // Toggle mobile menu
       toggle.addEventListener('click', () => {
-        const expanded = toggle.getAttribute('aria-expanded') === 'true';
-        toggle.setAttribute('aria-expanded', String(!expanded));
         nav.classList.toggle('open');
-        body.classList.toggle('menu-open');             // 控制遮罩层
-        dropdown.classList.remove('open-dropdown');      // 关闭子菜单
-        hobbyToggle.setAttribute('aria-expanded', 'false');
+        dropdown.classList.remove('open-dropdown');
       });
-
-      // 2. 点击 “Hobby” 切换子菜单，仅在移动端生效
+      // Toggle hobby submenu
       hobbyToggle.addEventListener('click', () => {
-        const expanded = hobbyToggle.getAttribute('aria-expanded') === 'true';
-        // 强制先展开主菜单
         nav.classList.add('open');
-        body.classList.add('menu-open');
-        toggle.setAttribute('aria-expanded', 'true');
-
-        // 切换子菜单
         dropdown.classList.toggle('open-dropdown');
-        hobbyToggle.setAttribute('aria-expanded', String(!expanded));
       });
-
-      // 3. 点击导航项 -> 跳转 section + 关闭菜单
+      // Navigation (包括 logo)
       links.forEach(link => {
         link.addEventListener('click', () => {
-          const targetId = link.getAttribute('data-target');
-          if (!targetId) return;
-
-          // 收起所有菜单
+          const targetId = link.getAttribute('data-target'); if (!targetId) return;
           nav.classList.remove('open');
-          body.classList.remove('menu-open');
           dropdown.classList.remove('open-dropdown');
-          toggle.setAttribute('aria-expanded', 'false');
-          hobbyToggle.setAttribute('aria-expanded', 'false');
-
-          // 切换 active 样式
           links.forEach(l => l.classList.remove('active'));
           link.classList.add('active');
-
-          // 显示对应 section
-          sections.forEach(sec => sec.classList.remove('active'));
-          const secToShow = document.getElementById(targetId);
-          if (secToShow) secToShow.classList.add('active');
+          sections.forEach(s => s.classList.remove('active'));
+          document.getElementById(targetId).classList.add('active');
         });
-      });
-
-      // 4. 在窗口尺寸变化时收起菜单，避免样式错乱
-      window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
-          nav.classList.remove('open');
-          body.classList.remove('menu-open');
-          dropdown.classList.remove('open-dropdown');
-          toggle.setAttribute('aria-expanded', 'false');
-          hobbyToggle.setAttribute('aria-expanded', 'false');
-        }
       });
     });
   </script>
