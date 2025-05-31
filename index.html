@@ -123,6 +123,37 @@
         font-size: 0.9rem;
       }
     }
+    /* ========== “返回顶部” 按钮样式 ========== */
+     #back-to-top {
+      position: fixed;         /* 固定在页面可视区域 */
+      bottom: 20px;            /* 距离底部 20px */
+      right: 20px;             /* 距离右侧 20px */
+      width: 40px;             /* 按钮宽度 */
+      height: 40px;            /* 按钮高度 */
+      background-color: rgba(255, 255, 255, 0.8);  /* 白底半透明 */
+      color: #333;             /* 箭头/文字颜色 */
+      border: none;            /* 无边框 */
+      border-radius: 50%;      /* 圆形按钮 */
+      font-size: 1.2rem;       /* 箭头或文字大小 */
+      cursor: pointer;         /* 鼠标悬停时显示手型 */
+      display: none;           /* 初始隐藏，等滚动时再显示 */
+      align-items: center;     /* 垂直居中(配合 flex) */
+      justify-content: center; /* 水平居中(配合 flex) */
+      z-index: 100;            /* 保证在最上层 */
+      transition: opacity 0.3s ease; /* 淡入淡出过渡 */
+      opacity: 0;              /* 初始透明度为 0 */
+      }
+
+    #back-to-top.show {
+     display: flex;   /* 用 flex 把 ↑ 垂直水平居中 */
+     opacity: 1;      /* 当滚动超过阈值时，添加 .show 会让它渐显 */
+     }
+
+/* 鼠标悬停时的细微效果 */
+   #back-to-top:hover {
+     background-color: rgba(255, 255, 255, 1);
+     }
+
     /* ==============================
        到这里为止，样式更改完毕。
        其余导航和页面内容完全未动。
@@ -235,11 +266,5 @@
     });
   </script>
     </script>
-
-  <button id="back-to-top" title="Back To Top">↑</button>
-  
-</body>
-</html>
-
 </body>
 </html>
